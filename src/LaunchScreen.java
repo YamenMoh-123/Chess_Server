@@ -83,7 +83,6 @@ class LaunchScreen extends JPanel {
         button.setBackground(background);
         button.setForeground(foreground);
         button.setFocusPainted(false);
-        button.setBorder(new RoundedBorder(radius));
         button.setPreferredSize(size); // Set preferred size
         button.setFont(new Font(button.getFont().getName(), Font.PLAIN, fontSize)); // Set font size
 
@@ -161,7 +160,6 @@ class LaunchScreen extends JPanel {
             }
         });
 
-        comboBox.setBorder(new RoundedBorder(radius));
         comboBox.setPreferredSize(size); // Set preferred size
         comboBox.setFont(new Font(comboBox.getFont().getName(), Font.PLAIN, fontSize)); // Set font size
         return comboBox;
