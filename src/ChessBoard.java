@@ -14,18 +14,17 @@ public class ChessBoard extends JPanel {
     private static final int BOARD_SIZE = 800;
     private static final int FONT_SIZE = 16;
     private static final int PADDING_RIGHT = 10;
-    private static int turn = 0;
     private static String[] colNames = {"a", "b", "c", "d", "e", "f", "g", "h"};
     public static boolean moved = false;
-
+    public static String turn = "WHITE";
     private String[][] boardInit = {
+            {"King", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
             {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
-            {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
-            {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
+            {"Empty", "Rook", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
             {"Empty", "Empty", "Empty", "Queen", "Empty", "Empty", "Empty", "Empty"},
             {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
             {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Knight", "Empty"},
-            {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
+            {"Empty", "Pawn", "Empty", "Empty", "Empty", "Bishop", "Empty", "Empty"},
             {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"}
     };
 
@@ -35,18 +34,19 @@ public class ChessBoard extends JPanel {
     private Color previousTileColor = null;
 
     JButton endButton = new JButton("End");
-
+    public static JLabel statusLabel;
     private ActionListener endListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println(moved);
             if (moved) {
-                System.out.println(moved);
                 try {
+                    System.out.println(" client sent: ");
+                    statusLabel.setText("New Text");
                     ChessGame.toClient = new PrintWriter(ChessGame.clientSocket.getOutputStream(), true);
                     ChessGame.toClient.println("YOUR TURN"); // Notify the client it's their turn
                     String messageFromClient = ChessGame.fromClient.readLine();
-                    System.out.println(turn + " client sent: " + messageFromClient);
+                    System.out.println(" client sent: " + messageFromClient);
+                    // Update the turn
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
@@ -55,33 +55,39 @@ public class ChessBoard extends JPanel {
         }
     };
 
+
+
     private ActionListener pieceListener = new ActionListener() {
 
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println(moved);
+            System.out.println();
             if (!moved) {
                 if (previousClickedTile == null) {
-                    previousClickedTile = (ChessSquare) e.getSource();
-                    previousTileColor = previousClickedTile.getBackground();
-                    previousClickedTile.setBackground(Color.RED);
+                    if (((ChessSquare) e.getSource()).getPiece() != null && ((ChessSquare) e.getSource()).getPiece().color == Color.WHITE) {
+                        previousClickedTile = (ChessSquare) e.getSource();
+                        previousTileColor = previousClickedTile.getBackground();
+                        previousClickedTile.setBackground(Color.RED);
+                    }
                 } else {
-                    previousClickedTile.setBackground(previousTileColor);
+                    ((ChessSquare) e.getSource()).setBackground(previousTileColor);
                     if (previousClickedTile.getPiece() != null) {
                         movePiece(((ChessSquare) e.getSource()).getName());
                         try {
                             ChessGame.toClient = new PrintWriter(ChessGame.clientSocket.getOutputStream(), true);
                             ChessGame.toClient.flush();
-                            ChessGame.toClient.println(previousClickedTile.getName() + " " + ((ChessSquare) e.getSource()).getName());
+                            ChessGame.toClient.println(previousClickedTile.getName() + " " + ((ChessSquare) e.getSource()).getName() + " " + ((ChessSquare) e.getSource()).getPiece().name);
                             moved = true;
                         } catch (IOException ioException) {
                             ioException.printStackTrace();
                         }
-
+                        turn = "BLACK";
+                        statusLabel.setText(turn + " | White: 10.00 | Black: 10.00");
                     }
 
                 }
-                if (previousClickedTile.getPiece() != null) {
+                if (previousClickedTile.getPiece() != null && previousClickedTile.getPiece().color == Color.WHITE) {
                     displayPossibleMoves(previousClickedTile.getPiece().validMoves(previousClickedTile.getName(), previousClickedTile.getPiece().name));
                     previousTileColor = previousClickedTile.getBackground();
                     previousClickedTile.setBackground(Color.RED);
@@ -119,7 +125,7 @@ public class ChessBoard extends JPanel {
 
     public void resetTileColors() {
         for (int row = 0; row < ROWS; row++) {
-            for (int col = 0; col < COLS; col++) {
+            for (int col= 0; col < COLS; col++) {
                 if ((row + col) % 2 == 0) {
                     chessBoard[row][col].setBackground(Color.WHITE);
                 } else {
@@ -137,6 +143,7 @@ public class ChessBoard extends JPanel {
         JPanel sideLabels = new JPanel(new GridLayout(ROWS, 1));
 
         Font labelFont = new Font("SansSerif", Font.BOLD, FONT_SIZE);
+        statusLabel = new JLabel(turn + " | White: 10.00 | Black: 10.00");
 
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLS; col++) {
@@ -167,6 +174,7 @@ public class ChessBoard extends JPanel {
             bottomLabel.setFont(labelFont);
             bottomLabels.add(bottomLabel);
         }
+        add(statusLabel, BorderLayout.NORTH);
         add(boardPanel, BorderLayout.CENTER);
         add(bottomLabels, BorderLayout.SOUTH);
         add(sideLabels, BorderLayout.WEST);
@@ -179,11 +187,15 @@ public class ChessBoard extends JPanel {
     public void initBoard() {
         for (int row = 0; row < COLS; row++) {
             for (int col = 0; col < ROWS; col++) {
-                int[] pos = chessBoard[row][col].getPos();
-                PieceObject piece = new PieceObject(boardInit[row][col], Color.BLACK, pos[0], pos[1]);
-                chessBoard[row][col].setPiece(piece);
-                GameCanvas.gameManager.addGameObject(piece);
+                if(!boardInit[row][col].equals("Empty")){
+                    Color color = (row > 3) ? Color.BLACK : Color.WHITE;
+                    int []pos = chessBoard[row][col].getPos();
+                    PieceObject piece = new PieceObject(boardInit[row][col], color, pos[0], pos[1]);
+                    chessBoard[row][col].setPiece(piece);
+                    GameCanvas.gameManager.addGameObject(piece);
+                }
             }
         }
     }
 }
+
