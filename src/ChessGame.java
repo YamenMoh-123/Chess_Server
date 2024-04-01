@@ -53,14 +53,16 @@ public class ChessGame extends JPanel {
         try{
             socket = new ServerSocket(1234);
             // wait for a client to connect.
+            System.out.println("Waiting for client to connect...");
             clientSocket = socket.accept();
             fromClient = new BufferedReader(new InputStreamReader(ChessGame.clientSocket.getInputStream()));
         } catch (
                 IOException ioException) {
             ioException.printStackTrace();
         }
+        System.out.println("Client connected!");
         SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Chess Game");
+            JFrame frame = new JFrame("SERVER");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
             LaunchScreen homeScreen = new LaunchScreen(frame);

@@ -61,6 +61,7 @@ public class ChessBoard extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            System.out.println("Clicked");
             System.out.println(moved);
             System.out.println();
             if (!moved) {

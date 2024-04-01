@@ -19,7 +19,7 @@ class LaunchScreen extends JPanel {
         // Title Panel
         JPanel logoPanel = new JPanel();
         logoPanel.setBackground(Color.LIGHT_GRAY); // Set background color to grey for the title panel
-        JLabel logoLabel = new JLabel(new ImageIcon("C:\\Users\\Abid\\Downloads\\Computer Science\\2800\\Resources\\Sprites\\Logo.png")); // Chess piece symbol
+        JLabel logoLabel = new JLabel(new ImageIcon("Resources/Sprites/img.png")); // Chess piece symbol
         logoLabel.setFont(new Font("Arial", Font.PLAIN, 48));
         logoPanel.add(logoLabel);
 
@@ -159,6 +159,7 @@ class LaunchScreen extends JPanel {
                 comboBox.setBackground(originalBackground);
             }
         });
+
 
         comboBox.setPreferredSize(size); // Set preferred size
         comboBox.setFont(new Font(comboBox.getFont().getName(), Font.PLAIN, fontSize)); // Set font size
