@@ -8,7 +8,8 @@ public class PieceObject {
     Color color;
     int x, y;
     private static String[] colNames = {"a", "b", "c", "d", "e", "f", "g", "h"};
-    static BufferedImage[] PieceSprite = Resources.pieceSheet.getImagesFrom(0, 5);  // make white and black to switch? or 2
+    static BufferedImage[] PieceSprite = Resources.pieceSheet.getImagesFrom(0, 5);  // make white and black to switch? or 2\
+    static BufferedImage[] PieceSpriteBlack = Resources.pieceSheet.getImagesFrom(6, 11);  // make white and black to switch? or 2
 
     public PieceObject(String name, Color color, int x, int y) {
         this.name = name;
@@ -59,6 +60,7 @@ public class PieceObject {
             if(x+i < 8 && y+i < 8){
                 validMoves.add(colNames[x+i] + " " + (y+i+1));
                 if(ChessBoard.chessBoard[7-y-i][x+i].getPiece() != null){
+                    boolean isOpponentPiece = isOpponentPiece(x+i, 7-y-i);
                     break;
                 }
             }
@@ -211,25 +213,49 @@ public class PieceObject {
     }
 
     public void render(Graphics2D g2d) {
-        switch (this.name){
-            case "King":
-                g2d.drawImage(PieceSprite[0], this.x, this.y, 100, 100, null);
-                break;
-            case "Queen":
-                g2d.drawImage(PieceSprite[1], this.x, this.y, 100, 100, null);
-                break;
-            case "Rook":
-                g2d.drawImage(PieceSprite[4], this.x, this.y, 100, 100, null);
-                break;
-            case "Bishop":
-                g2d.drawImage(PieceSprite[2], this.x, this.y, 100, 100, null);
-                break;
-            case "Knight":
-                g2d.drawImage(PieceSprite[3], this.x, this.y, 100, 100, null);
-                break;
-            case "Pawn":
-                g2d.drawImage(PieceSprite[5], this.x, this.y, 100, 100, null);
-                break;
+        if(this.color == Color.WHITE) {
+            switch (this.name) {
+                case "King":
+                    g2d.drawImage(PieceSprite[0], this.x, this.y, 100, 100, null);
+                    break;
+                case "Queen":
+                    g2d.drawImage(PieceSprite[1], this.x, this.y, 100, 100, null);
+                    break;
+                case "Rook":
+                    g2d.drawImage(PieceSprite[4], this.x, this.y, 100, 100, null);
+                    break;
+                case "Bishop":
+                    g2d.drawImage(PieceSprite[2], this.x, this.y, 100, 100, null);
+                    break;
+                case "Knight":
+                    g2d.drawImage(PieceSprite[3], this.x, this.y, 100, 100, null);
+                    break;
+                case "Pawn":
+                    g2d.drawImage(PieceSprite[5], this.x, this.y, 100, 100, null);
+                    break;
+            }
+        }
+        else{
+            switch (this.name) {
+                case "King":
+                    g2d.drawImage(PieceSpriteBlack[0], this.x, this.y, 100, 100, null);
+                    break;
+                case "Queen":
+                    g2d.drawImage(PieceSpriteBlack[1], this.x, this.y, 100, 100, null);
+                    break;
+                case "Rook":
+                    g2d.drawImage(PieceSpriteBlack[4], this.x, this.y, 100, 100, null);
+                    break;
+                case "Bishop":
+                    g2d.drawImage(PieceSpriteBlack[2], this.x, this.y, 100, 100, null);
+                    break;
+                case "Knight":
+                    g2d.drawImage(PieceSpriteBlack[3], this.x, this.y, 100, 100, null);
+                    break;
+                case "Pawn":
+                    g2d.drawImage(PieceSpriteBlack[5], this.x, this.y, 100, 100, null);
+                    break;
+            }
         }
 
     }
