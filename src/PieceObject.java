@@ -41,6 +41,12 @@ public class PieceObject {
         return null;
     }
 
+    boolean isOpponentPiece(int x, int y){
+        if (ChessBoard.chessBoard[y][x].getPiece().color == this.color) {
+            return false;
+        }
+        return true;
+    }
 
     public ArrayList<String> moveBishop(String startingPos) {
         ArrayList<String> validMoves = new ArrayList<>();
@@ -54,14 +60,12 @@ public class PieceObject {
                 validMoves.add(colNames[x+i] + " " + (y+i+1));
                 if(ChessBoard.chessBoard[7-y-i][x+i].getPiece() != null){
                     break;
-
                 }
             }
         }
 
         // bottom right
         for(int i =1; i < 8; i ++){
-
             if(x+i < 8 && y-i >= 0){
                validMoves.add(colNames[x+i] + " " + (y-i+1));
                 if(ChessBoard.chessBoard[7-y+i][x+i].getPiece() != null){
