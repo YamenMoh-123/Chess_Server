@@ -30,7 +30,7 @@ public class ChessBoard extends JPanel {
 
     public static ChessSquare[][] chessBoard = new ChessSquare[ROWS][COLS];
 
-    private ChessSquare previousClickedTile = null;
+    private static ChessSquare previousClickedTile = null;
     private Color previousTileColor = null;
 
 
@@ -90,7 +90,14 @@ public class ChessBoard extends JPanel {
         }
     }
 
-    public void movePiece(String name) {
+    public static void setTile(int x, int y){
+        previousClickedTile = chessBoard[y][x];
+        System.out.println("set tile " + previousClickedTile);
+    }
+
+    public static void movePiece(String name) {
+        System.out.println("test name " + name + " previous tile" + previousClickedTile);
+        System.out.println(previousClickedTile.getPiece().validMoves(previousClickedTile.getName(), previousClickedTile.getPiece().name));
         int x = name.charAt(0) - 97;
         int y = 7 - (name.charAt(2) - 49);
         System.out.println("Going to " + name);
@@ -109,7 +116,7 @@ public class ChessBoard extends JPanel {
         }
     }
 
-    private void switchTurn() {
+    private static void switchTurn() {
         if (turn.equals("WHITE")) {
             turn = "BLACK";
         } else {
@@ -118,7 +125,7 @@ public class ChessBoard extends JPanel {
         updateStatusLabel();
     }
 
-    private void updateStatusLabel() {
+    private static void updateStatusLabel() {
         statusLabel.setText(turn + " | White: 10.00 | Black: 10.00");
     }
 
