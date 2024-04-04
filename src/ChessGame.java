@@ -14,13 +14,13 @@ public class ChessGame extends JPanel {
     public static Socket clientSocket;
     public static BufferedReader fromClient;
     public static PrintWriter toClient;
-    public static String notification = null;
+    public static String notification;
     public static void handleServerNotifications() {
         new Thread(() -> {
             try {
                 while (true) {
                     // Listen for notifications from the server
-                    String notification = ChessGame.fromClient.readLine();
+                    notification = ChessGame.fromClient.readLine();
                     if (notification != null) {
                         // Logic to handle the notification
                         // For example, you can update the game state, display messages to the user, etc.
@@ -28,16 +28,9 @@ public class ChessGame extends JPanel {
                         if (notification.length() > 10) {
                             int oldX = notification.charAt(0) - 97;
                             int oldY = 7 - (notification.charAt(2) - 49);
-
-                            ChessBoard.setTile(oldX,oldY);
-                            String goingTo = notification.charAt(4) + " " + notification.charAt(6);
-                            ChessBoard.movePiece(goingTo);
-
-                            ChessBoard.moved = false;
-                            ChessBoard.turn = "WHITE";
-                            SwingUtilities.invokeLater(() -> {
-                                ChessBoard.statusLabel.setText(ChessBoard.turn + " | White: " + ChessBoard.whiteMin + ":" + String.format("%02d", ChessBoard.whiteSec) + " | Black: " + ChessBoard.blackMin + ":" + String.format("%02d", ChessBoard.blackSec));
-                            });
+                            int x = notification.charAt(4) - 97;
+                            int y = 7 - (notification.charAt(6) - 49);
+                            ChessBoard.moveResponse(oldX, oldY, x, y);
                         }
                     }
                 }
