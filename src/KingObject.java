@@ -81,6 +81,4 @@ public class KingObject extends PieceObject {
         return false;
     }
 
-
-
 }
