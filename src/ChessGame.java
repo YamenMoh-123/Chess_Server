@@ -35,6 +35,7 @@ public class ChessGame extends JPanel {
                     }
                 }
             } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Opponent disconnected.", "Notice", JOptionPane.INFORMATION_MESSAGE);
                 e.printStackTrace();
             }
         }).start();

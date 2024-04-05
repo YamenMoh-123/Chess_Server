@@ -181,8 +181,8 @@ public class ChessBoard extends JPanel {
                         blackSec--;
                         if (blackMin == 0 && blackSec == 0){
                             timer.stop();
-                            JOptionPane.showMessageDialog(ChessBoard.this, "You won by time!\n",
-                                    "WHITE WINS", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(ChessBoard.this, "WHITE WINS\nYou won by time!\n",
+                                    "Notice", JOptionPane.ERROR_MESSAGE);
                             return;
                         }
                     }
@@ -194,8 +194,8 @@ public class ChessBoard extends JPanel {
                         whiteSec--;
                         if (whiteMin == 0 && whiteSec == 0){
                             timer.stop();
-                            JOptionPane.showMessageDialog(ChessBoard.this, "You lost by time.\n",
-                                    "BLACK WINS", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(ChessBoard.this, "BLACK WINS\nYou lost by time.\n",
+                                    "Notice", JOptionPane.ERROR_MESSAGE);
                             return;
                         }
                     }

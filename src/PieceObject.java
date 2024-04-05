@@ -63,7 +63,7 @@ public class PieceObject {
                 validMoves.add(colNames[x+i] + " " + (y+i+1));
                 if(ChessBoard.chessBoard[7-y-i][x+i].getPiece() != null){
                     if(!isOpponentPiece(x+i, 7-y-i)){
-                        validMoves.removeLast();
+                        validMoves.remove(validMoves.size() - 1);
                     }
                     break;
                 }
@@ -76,7 +76,7 @@ public class PieceObject {
                validMoves.add(colNames[x+i] + " " + (y-i+1));
                 if(ChessBoard.chessBoard[7-y+i][x+i].getPiece() != null){
                     if(!isOpponentPiece(x+i, 7-y+i)){
-                        validMoves.removeLast();
+                        validMoves.remove(validMoves.size() - 1);
                     }
                     break;
                 }
@@ -89,7 +89,7 @@ public class PieceObject {
                 validMoves.add(colNames[x-i] + " " + (y+i+1));
                 if(ChessBoard.chessBoard[7-y-i][x-i].getPiece() != null) {
                     if(!isOpponentPiece(x-i, 7-y-i)){
-                        validMoves.removeLast();
+                        validMoves.remove(validMoves.size() - 1);
                     }
                     break;
                 }
@@ -102,7 +102,7 @@ public class PieceObject {
                 validMoves.add(colNames[x-i] + " " + (y-i+1));
                 if(ChessBoard.chessBoard[7-y+i][x-i].getPiece() != null){
                     if(!isOpponentPiece(x-i, 7-y+i)){
-                        validMoves.removeLast();
+                        validMoves.remove(validMoves.size() - 1);
                     }
                     break;
                 }
@@ -125,7 +125,7 @@ public class PieceObject {
                 validMoves.add(colNames[x+i] + " " + y);
                 if(ChessBoard.chessBoard[8-y][x+i].getPiece() != null){
                     if (!isOpponentPiece(x+i, 8-y)){
-                        validMoves.removeLast();
+                        validMoves.remove(validMoves.size() - 1);
                     }
                     break;
                 }
@@ -138,7 +138,7 @@ public class PieceObject {
                 validMoves.add(colNames[x-i] + " " + y);
                 if(ChessBoard.chessBoard[8-y][x-i].getPiece() != null) {
                     if (!isOpponentPiece(x-i, 8-y)){
-                        validMoves.removeLast();
+                        validMoves.remove(validMoves.size() - 1);
                     }
                     break;
                 }
@@ -152,7 +152,7 @@ public class PieceObject {
                 validMoves.add(colNames[x] + " " + (y+i));
                 if (ChessBoard.chessBoard[8-(y+i)][x].getPiece() != null) {
                     if (!isOpponentPiece(x, 8-(y+i))){
-                        validMoves.removeLast();
+                        validMoves.remove(validMoves.size() - 1);
                     }
                     break;
                 }
@@ -165,7 +165,7 @@ public class PieceObject {
                 validMoves.add(colNames[x] + " " + (y-i));
                 if (ChessBoard.chessBoard[8-(y-i)][x].getPiece() != null) {
                     if (!isOpponentPiece(x, 8-(y-i))){
-                        validMoves.removeLast();
+                        validMoves.remove(validMoves.size() - 1);
                     }
                     break;
                 }
