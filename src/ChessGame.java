@@ -14,13 +14,13 @@ public class ChessGame extends JPanel {
     public static Socket clientSocket;
     public static BufferedReader fromClient;
     public static PrintWriter toClient;
-    public static String notification = null;
+    public static String notification;
     public static void handleServerNotifications() {
         new Thread(() -> {
             try {
                 while (true) {
                     // Listen for notifications from the server
-                    String notification = ChessGame.fromClient.readLine();
+                    notification = ChessGame.fromClient.readLine();
                     if (notification != null) {
                         // Logic to handle the notification
                         // For example, you can update the game state, display messages to the user, etc.
@@ -38,6 +38,7 @@ public class ChessGame extends JPanel {
                             GameCanvas.gameManager.addGameObject(piece);
                             ChessBoard.turn = "WHITE";
                             ChessBoard.moved = false;
+                            ChessBoard.moveResponse(oldX, oldY, x, y);
                         }
                     }
                 }

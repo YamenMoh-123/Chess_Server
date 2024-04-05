@@ -26,6 +26,8 @@ public class PieceObject {
 
     public ArrayList<String> validMoves(String startingPos, String type) {
         switch (type) {
+            case "King":
+                return moveKing(startingPos);
             case "Bishop":
                 return moveBishop(startingPos);
             case "Rook":
@@ -34,8 +36,6 @@ public class PieceObject {
                 return moveQueen(startingPos);
             case "Knight":
                 return moveKnight(startingPos);
-            case "King":
-                return moveKing(startingPos);
             case "Pawn":
                 return movePawn(startingPos);
         }
@@ -43,10 +43,12 @@ public class PieceObject {
     }
 
     boolean isOpponentPiece(int x, int y){
-        if (ChessBoard.chessBoard[y][x].getPiece().color == this.color) {
-            return false;
-        }
-        return true;
+        return ChessBoard.chessBoard[y][x].getPiece().color != this.color;
+    }
+
+    public ArrayList<String> moveKing(String startingPos){
+        ArrayList<String> validMoves = new ArrayList<String>();
+        return validMoves;
     }
 
     public ArrayList<String> moveBishop(String startingPos) {
@@ -60,7 +62,9 @@ public class PieceObject {
             if(x+i < 8 && y+i < 8){
                 validMoves.add(colNames[x+i] + " " + (y+i+1));
                 if(ChessBoard.chessBoard[7-y-i][x+i].getPiece() != null){
-                    boolean isOpponentPiece = isOpponentPiece(x+i, 7-y-i);
+                    if(!isOpponentPiece(x+i, 7-y-i)){
+                        validMoves.removeLast();
+                    }
                     break;
                 }
             }
@@ -71,6 +75,9 @@ public class PieceObject {
             if(x+i < 8 && y-i >= 0){
                validMoves.add(colNames[x+i] + " " + (y-i+1));
                 if(ChessBoard.chessBoard[7-y+i][x+i].getPiece() != null){
+                    if(!isOpponentPiece(x+i, 7-y+i)){
+                        validMoves.removeLast();
+                    }
                     break;
                 }
             }
@@ -81,6 +88,9 @@ public class PieceObject {
             if(x-i >= 0 && y+i < 8){
                 validMoves.add(colNames[x-i] + " " + (y+i+1));
                 if(ChessBoard.chessBoard[7-y-i][x-i].getPiece() != null) {
+                    if(!isOpponentPiece(x-i, 7-y-i)){
+                        validMoves.removeLast();
+                    }
                     break;
                 }
             }
@@ -91,6 +101,9 @@ public class PieceObject {
             if(x-i >= 0 && y-i >= 0){
                 validMoves.add(colNames[x-i] + " " + (y-i+1));
                 if(ChessBoard.chessBoard[7-y+i][x-i].getPiece() != null){
+                    if(!isOpponentPiece(x-i, 7-y+i)){
+                        validMoves.removeLast();
+                    }
                     break;
                 }
             }
@@ -111,6 +124,9 @@ public class PieceObject {
             if (x + i < 8) {
                 validMoves.add(colNames[x+i] + " " + y);
                 if(ChessBoard.chessBoard[8-y][x+i].getPiece() != null){
+                    if (!isOpponentPiece(x+i, 8-y)){
+                        validMoves.removeLast();
+                    }
                     break;
                 }
             }
@@ -121,6 +137,9 @@ public class PieceObject {
             if(x-i >= 0){
                 validMoves.add(colNames[x-i] + " " + y);
                 if(ChessBoard.chessBoard[8-y][x-i].getPiece() != null) {
+                    if (!isOpponentPiece(x-i, 8-y)){
+                        validMoves.removeLast();
+                    }
                     break;
                 }
             }
@@ -132,6 +151,9 @@ public class PieceObject {
             if(y+i <= 8){
                 validMoves.add(colNames[x] + " " + (y+i));
                 if (ChessBoard.chessBoard[8-(y+i)][x].getPiece() != null) {
+                    if (!isOpponentPiece(x, 8-(y+i))){
+                        validMoves.removeLast();
+                    }
                     break;
                 }
             }
@@ -142,6 +164,9 @@ public class PieceObject {
             if(y-i > 0){
                 validMoves.add(colNames[x] + " " + (y-i));
                 if (ChessBoard.chessBoard[8-(y-i)][x].getPiece() != null) {
+                    if (!isOpponentPiece(x, 8-(y-i))){
+                        validMoves.removeLast();
+                    }
                     break;
                 }
             }
@@ -197,20 +222,6 @@ public class PieceObject {
         return validMoves;
     }
 
-
-    public ArrayList<String> moveKing(String startingPos){
-        ArrayList<String> validMoves = new ArrayList<String>();
-        int x = startingPos.charAt(0) - 97;
-        int y = startingPos.charAt(2) - 49;
-        int[] xMoves = {x+1, x+1, x-1, x-1, x+1, x-1, x, x};
-        int[] yMoves = {y+1, y-1, y+1, y-1, y, y, y+1, y-1};
-        for(int i = 0; i < 8; i++){
-            if(xMoves[i] >= 0 && xMoves[i] < 8 && yMoves[i] >= 0 && yMoves[i] < 8){
-                validMoves.add((char)(xMoves[i]+97) + " " + (yMoves[i]+1));
-            }
-        }
-        return validMoves;
-    }
 
     public void render(Graphics2D g2d) {
         if(this.color == Color.WHITE) {

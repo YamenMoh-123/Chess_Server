@@ -20,18 +20,22 @@ public class ChessBoard extends JPanel {
     private String[][] boardInit = {
             {"King", "Empty", "Empty", "Empty", "Empty", "Rook", "Empty", "Empty"},
             {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
+            {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
             {"Empty", "Rook", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
             {"Empty", "Empty", "Empty", "Queen", "Empty", "Empty", "Empty", "Empty"},
             {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
-            {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Knight", "Empty"},
+            {"Empty", "Empty", "Empty", "Empty", "Empty", "Rook", "Knight", "Empty"},
             {"Empty", "Pawn", "Empty", "Empty", "Empty", "Bishop", "Empty", "Empty"},
-            {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"}
+            {"Empty", "Empty", "Empty", "Empty", "Empty", "Bishop", "Empty", "Empty"}
     };
 
     public static ChessSquare[][] chessBoard = new ChessSquare[ROWS][COLS];
 
     private ChessSquare previousClickedTile = null;
     private Color previousTileColor = null;
+
+    public static PieceObject whiteKing;
+    public static PieceObject blackKing;
 
     public static int whiteMin = Integer.parseInt(LaunchScreen.gameTime); // Initial minutes
     public static int whiteSec = 0; // Initial seconds
@@ -92,7 +96,11 @@ public class ChessBoard extends JPanel {
         }
     }
 
+
+
     public void movePiece(String name) {
+        System.out.println("test name " + name + " previous tile" + previousClickedTile);
+        System.out.println(previousClickedTile.getPiece().validMoves(previousClickedTile.getName(), previousClickedTile.getPiece().name));
         int x = name.charAt(0) - 97;
         int y = 7 - (name.charAt(2) - 49);
         System.out.println("Going to " + name);
@@ -111,13 +119,29 @@ public class ChessBoard extends JPanel {
         }
     }
 
-    private void switchTurn() {
+    public static void moveResponse(int oldx, int oldy, int x, int y){
+        if (chessBoard[y][x].getPiece() != null) {
+            GameCanvas.gameManager.removeGameObject(chessBoard[y][x].getPiece());
+        }
+        String name = chessBoard[oldy][oldx].getPiece().name;
+        GameCanvas.gameManager.removeGameObject(chessBoard[oldy][oldx].getPiece());
+        chessBoard[oldy][oldx].setPiece(null);
+        PieceObject piece = new PieceObject(name, Color.BLACK,  chessBoard[y][x].getPos()[0], chessBoard[y][x].getPos()[1]);
+        chessBoard[y][x].setPiece(piece);
+        GameCanvas.gameManager.addGameObject(piece);
+        moved = false;
+        switchTurn();
+    }
+
+    private static void switchTurn() {
         if (turn.equals("WHITE")) {
             turn = "BLACK";
         } else {
             turn = "WHITE";
         }
     }
+
+  
 
     public void resetTileColors() {
         for (int row = 0; row < ROWS; row++) {
@@ -258,5 +282,11 @@ public class ChessBoard extends JPanel {
                 }
             }
         }
+        whiteKing = new KingObject(chessBoard[5][0].getPos()[0], chessBoard[5][0].getPos()[1], 5, 0, Color.WHITE);
+        blackKing = new KingObject(chessBoard[0][5].getPos()[0], chessBoard[0][5].getPos()[1], 0, 5, Color.BLACK);
+        GameCanvas.gameManager.addGameObject(whiteKing);
+        GameCanvas.gameManager.addGameObject(blackKing);
+        chessBoard[5][0].setPiece(whiteKing);
+        chessBoard[0][5].setPiece(blackKing);
     }
 }
