@@ -30,14 +30,6 @@ public class ChessGame extends JPanel {
                             int oldY = 7 - (notification.charAt(2) - 49);
                             int x = notification.charAt(4) - 97;
                             int y = 7 - (notification.charAt(6) - 49);
-                            String name = notification.substring(8);
-                            GameCanvas.gameManager.removeGameObject(ChessBoard.chessBoard[oldY][oldX].getPiece());
-                            ChessBoard.chessBoard[oldY][oldX].setPiece(null);
-                            PieceObject piece = new PieceObject(name, Color.BLACK, ChessBoard.chessBoard[y][x].getPos()[0], ChessBoard.chessBoard[y][x].getPos()[1]);
-                            ChessBoard.chessBoard[y][x].setPiece(piece);
-                            GameCanvas.gameManager.addGameObject(piece);
-                            ChessBoard.turn = "WHITE";
-                            ChessBoard.moved = false;
                             ChessBoard.moveResponse(oldX, oldY, x, y);
                         }
                     }

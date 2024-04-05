@@ -18,7 +18,6 @@ public class ChessBoard extends JPanel {
     public static boolean moved = false;
     public static String turn = "WHITE";
     private String[][] boardInit = {
-            {"King", "Empty", "Empty", "Empty", "Empty", "Rook", "Empty", "Empty"},
             {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
             {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
             {"Empty", "Rook", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
@@ -115,6 +114,7 @@ public class ChessBoard extends JPanel {
             chessBoard[y][x].setPiece(piece);
             GameCanvas.gameManager.addGameObject(piece);
             previousClickedTile.setPiece(null);
+            resetTileColors();
             switchTurn();
         }
     }
