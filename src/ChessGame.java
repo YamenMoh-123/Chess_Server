@@ -38,9 +38,6 @@ public class ChessGame extends JPanel {
                             GameCanvas.gameManager.addGameObject(piece);
                             ChessBoard.turn = "WHITE";
                             ChessBoard.moved = false;
-                            SwingUtilities.invokeLater(() -> {
-                                ChessBoard.statusLabel.setText(ChessBoard.turn + " | White: " + ChessBoard.whiteMin + ":" + String.format("%02d", ChessBoard.whiteSec) + " | Black: " + ChessBoard.blackMin + ":" + String.format("%02d", ChessBoard.blackSec));
-                            });
                         }
                     }
                 }
