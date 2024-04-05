@@ -26,6 +26,8 @@ public class PieceObject {
 
     public ArrayList<String> validMoves(String startingPos, String type) {
         switch (type) {
+            case "King":
+                return moveKing(startingPos);
             case "Bishop":
                 return moveBishop(startingPos);
             case "Rook":
@@ -34,8 +36,6 @@ public class PieceObject {
                 return moveQueen(startingPos);
             case "Knight":
                 return moveKnight(startingPos);
-            case "King":
-                return moveKing(startingPos);
             case "Pawn":
                 return movePawn(startingPos);
         }
@@ -44,6 +44,11 @@ public class PieceObject {
 
     boolean isOpponentPiece(int x, int y){
         return ChessBoard.chessBoard[y][x].getPiece().color != this.color;
+    }
+
+    public ArrayList<String> moveKing(String startingPos){
+        ArrayList<String> validMoves = new ArrayList<String>();
+        return validMoves;
     }
 
     public ArrayList<String> moveBishop(String startingPos) {
@@ -217,20 +222,6 @@ public class PieceObject {
         return validMoves;
     }
 
-
-    public ArrayList<String> moveKing(String startingPos){
-        ArrayList<String> validMoves = new ArrayList<String>();
-        int x = startingPos.charAt(0) - 97;
-        int y = startingPos.charAt(2) - 49;
-        int[] xMoves = {x+1, x+1, x-1, x-1, x+1, x-1, x, x};
-        int[] yMoves = {y+1, y-1, y+1, y-1, y, y, y+1, y-1};
-        for(int i = 0; i < 8; i++){
-            if(xMoves[i] >= 0 && xMoves[i] < 8 && yMoves[i] >= 0 && yMoves[i] < 8){
-                validMoves.add((char)(xMoves[i]+97) + " " + (yMoves[i]+1));
-            }
-        }
-        return validMoves;
-    }
 
     public void render(Graphics2D g2d) {
         if(this.color == Color.WHITE) {
