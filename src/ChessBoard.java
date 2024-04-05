@@ -18,12 +18,12 @@ public class ChessBoard extends JPanel {
     public static boolean moved = false;
     public static String turn = "WHITE";
     private String[][] boardInit = {
-            {"King", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
+            {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
             {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
             {"Empty", "Rook", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
             {"Empty", "Empty", "Empty", "Queen", "Empty", "Empty", "Empty", "Empty"},
             {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
-            {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Knight", "Empty"},
+            {"Empty", "Empty", "Empty", "Empty", "Empty", "Rook", "Knight", "Empty"},
             {"Empty", "Pawn", "Empty", "Empty", "Empty", "Bishop", "Empty", "Empty"},
             {"Empty", "Empty", "Empty", "Empty", "Empty", "Bishop", "Empty", "Empty"}
     };
@@ -32,6 +32,9 @@ public class ChessBoard extends JPanel {
 
     private ChessSquare previousClickedTile = null;
     private Color previousTileColor = null;
+
+    public static PieceObject whiteKing;
+    public static PieceObject blackKing;
 
     public static int whiteMin = Integer.parseInt(LaunchScreen.gameTime); // Initial minutes
     public static int whiteSec = 0; // Initial seconds
@@ -246,5 +249,11 @@ public class ChessBoard extends JPanel {
                 }
             }
         }
+        whiteKing = new KingObject(chessBoard[5][0].getPos()[0], chessBoard[5][0].getPos()[1], 5, 0, Color.WHITE);
+        blackKing = new KingObject(chessBoard[0][5].getPos()[0], chessBoard[0][5].getPos()[1], 0, 5, Color.BLACK);
+        GameCanvas.gameManager.addGameObject(whiteKing);
+        GameCanvas.gameManager.addGameObject(blackKing);
+        chessBoard[5][0].setPiece(whiteKing);
+        chessBoard[0][5].setPiece(blackKing);
     }
 }
