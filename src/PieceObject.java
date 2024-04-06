@@ -7,6 +7,7 @@ public class PieceObject {
     String name;
     Color color;
     int x, y;
+    boolean hasMoved;
     private static String[] colNames = {"a", "b", "c", "d", "e", "f", "g", "h"};
     static BufferedImage[] PieceSprite = Resources.pieceSheet.getImagesFrom(0, 5);  // make white and black to switch? or 2\
     static BufferedImage[] PieceSpriteBlack = Resources.pieceSheet.getImagesFrom(6, 11);  // make white and black to switch? or 2
@@ -16,6 +17,7 @@ public class PieceObject {
         this.color = color;
         this.x = x+5;
         this.y = y-10;
+        this.hasMoved = false;
     }
 
 
@@ -188,21 +190,38 @@ public class PieceObject {
         ArrayList<String> validMoves = new ArrayList<String>();
         int x = startingPos.charAt(0) - 97;
         int y = startingPos.charAt(2) - 49;
-        if(this.color == Color.WHITE){
-            if(y == 1){
-                validMoves.add((char)(x+97) + " " + (y+2));
-            }
-            if(y+1 < 8){
-                validMoves.add((char)(x+97) + " " + (y+2));
-            }
-        }else{
-            if(y == 6){
-                validMoves.add((char)(x+97) + " " + (y-2));
-            }
-            if(y-1 >= 0){
-                validMoves.add((char)(x+97) + " " + (y-2));
+        System.out.println("Location: " + x + " " + y);
+        if(y == 1){
+            if(ChessBoard.chessBoard[5][x].getPiece() == null){
+                validMoves.add(colNames[x] + " 3");
+                if(ChessBoard.chessBoard[4][x].getPiece() == null){
+                    validMoves.add(colNames[x] + " 4");
+                }
             }
         }
+        else if(y > 1 && y < 7){
+            if(ChessBoard.chessBoard[6-y][x].getPiece() == null){
+                validMoves.add(colNames[x] + " " + (y+2));
+            }
+        }
+        if(x+1 < 8 && y+1 < 8){
+            if(ChessBoard.chessBoard[7-y-1][x+1].getPiece() != null){
+                if(isOpponentPiece(x+1, 7-y-1)){
+                    validMoves.add(colNames[x+1] + " " + (y+2));
+                }
+            }
+        }
+        if(x-1 >= 0 && y+1 < 8){
+            if(ChessBoard.chessBoard[7-y-1][x-1].getPiece() != null){
+                if(isOpponentPiece(x-1, 7-y-1)){
+                    validMoves.add(colNames[x-1] + " " + (y+2));
+                }
+            }
+        }
+        if(y == 4){
+
+        }
+
         return validMoves;
     }
 
@@ -216,10 +235,21 @@ public class PieceObject {
         int[] yMoves = {y + 1, y - 1, y + 1, y - 1, y + 2, y - 2, y + 2, y - 2};
         for (int i = 0; i < 8; i++) {
             if (xMoves[i] >= 0 && xMoves[i] < 8 && yMoves[i] >= 0 && yMoves[i] < 8) {
-                validMoves.add((char) (xMoves[i] + 97) + " " + (yMoves[i] + 1));
+                char charValX = (char) (xMoves[i] + 97);
+                int inValX = letterToNumber(charValX);
+                if(ChessBoard.chessBoard[7-yMoves[i]][charValX-97].getPiece() == null || isOpponentPiece(charValX-97,7-yMoves[i])) {
+                    System.out.println(ChessBoard.chessBoard[7-yMoves[i]][charValX-97].getPiece() == null);
+                    System.out.println("checked move: " + inValX + " " + yMoves[i]);
+                    validMoves.add(charValX + " " + (yMoves[i] + 1));
+                    System.out.println(validMoves);
+                }
             }
         }
         return validMoves;
+    }
+
+    public static int letterToNumber(char letter) {
+        return Character.toLowerCase(letter) - 'a';
     }
 
 
