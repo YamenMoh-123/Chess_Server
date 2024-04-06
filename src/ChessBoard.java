@@ -22,9 +22,10 @@ public class ChessBoard extends JPanel {
             {"Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn"},
             {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
             {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
-            {"Empty", "Empty", "Pawn", "Empty", "Empty", "Empty", "Empty", "Empty"},
+            {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
+            {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
             {"Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn"},
-            {"Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook"}
+            {"Rook", "Knight", "Bishop", "Queen", "Empty", "Bishop", "Knight", "Rook"}
     };
 
 
@@ -119,7 +120,6 @@ public class ChessBoard extends JPanel {
         String name = chessBoard[oldy][oldx].getPiece().name;
         GameCanvas.gameManager.removeGameObject(chessBoard[oldy][oldx].getPiece());
         chessBoard[oldy][oldx].setPiece(null);
-        System.out.println("ENPASSANT IS :" + enPassant);
         PieceObject piece = new PieceObject(name, Color.BLACK,  chessBoard[y][x].getPos()[0], chessBoard[y][x].getPos()[1], enPassant);
         chessBoard[y][x].setPiece(piece);
         GameCanvas.gameManager.addGameObject(piece);
@@ -154,7 +154,7 @@ public class ChessBoard extends JPanel {
                 if ((row + col) % 2 == 0) {
                     chessBoard[row][col].setBackground(Color.WHITE);
                 } else {
-                    chessBoard[row][col].setBackground(Color.BLACK);
+                    chessBoard[row][col].setBackground(Color.DARK_GRAY);
                 }
             }
         }
