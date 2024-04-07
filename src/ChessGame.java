@@ -24,7 +24,7 @@ public class ChessGame extends JPanel {
                     if (notification != null) {
                         // Logic to handle the notification
                         // For example, you can update the game state, display messages to the user, etc.
-                        System.out.println("Received notification from server: " + notification);
+
                         String[] parts = notification.split(" ");
                         if (notification.length() > 10) {
                             int oldX = parts[0].charAt(0) - 97;
