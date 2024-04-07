@@ -261,6 +261,13 @@ public class PieceObject {
         return validMoves;
     }
 
+    public int[] getPos(){
+        return new int[]{};
+    }
+
+    public boolean isKingChecked() {
+        return false;
+    }
     public static int letterToNumber(char letter) {
         return Character.toLowerCase(letter) - 'a';
     }
