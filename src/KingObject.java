@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class KingObject extends PieceObject {
     private int boardX, boardY;
 
+
     static BufferedImage[] PieceSprite = Resources.pieceSheet.getImagesFrom(0, 0);
     static BufferedImage[] PieceSpriteBlack = Resources.pieceSheet.getImagesFrom(6, 6);
 
@@ -50,6 +51,56 @@ public class KingObject extends PieceObject {
                 // ChessBoard.chessBoard[boardX][boardY].setBackground(Color.YELLOW);
                 if(!isKingChecked() && ChessBoard.chessBoard[boardX][boardY].getPiece() == null){
                     validMoves.add((char) (xMoves[i] + 97) + " " + (yMoves[i] + 1));
+                }
+            }
+        }
+        boardX = tempX;
+        boardY = tempY;
+        ChessBoard.chessBoard[boardX][boardY].setPiece(temp);
+        validMoves.addAll(getMoves());
+        return validMoves;
+    }
+
+    public ArrayList<String> getMoves(){
+        int tempX = boardX;
+        int tempY = boardY;
+        PieceObject temp = ChessBoard.whiteKing;
+        ChessBoard.chessBoard[boardX][boardY].setPiece(null);
+        ArrayList<String> validMoves = new ArrayList<String>();
+
+        if(!hasMoved && ChessBoard.chessBoard[7][0].getPiece().name.equals("Rook") && !ChessBoard.chessBoard[7][0].getPiece().hasMoved){
+            if(ChessBoard.chessBoard[7][1].getPiece() == null && ChessBoard.chessBoard[7][2].getPiece() == null && ChessBoard.chessBoard[7][3].getPiece() == null){
+                if (!isKingChecked()) {
+                    boardX = 7;
+                    boardY = 1;
+                    if (!isKingChecked()) {
+                        boardX = 7;
+                        boardY = 2;
+                        if (!isKingChecked()) {
+                            boardX = 7;
+                            boardY = 3;
+                            if (!isKingChecked()) {
+                                validMoves.add("c 1");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        boardX = tempX;
+        boardY = tempY;
+        if(!hasMoved && ChessBoard.chessBoard[7][7].getPiece().name.equals("Rook") && !ChessBoard.chessBoard[7][7].getPiece().hasMoved){
+            if(ChessBoard.chessBoard[7][5].getPiece() == null && ChessBoard.chessBoard[7][6].getPiece() == null) {
+                if (!isKingChecked()) {
+                    boardX = 7;
+                    boardY = 5;
+                    if (!isKingChecked()) {
+                        boardX = 7;
+                        boardY = 6;
+                        if (!isKingChecked()) {
+                            validMoves.add("g 1");
+                        }
+                    }
                 }
             }
         }
