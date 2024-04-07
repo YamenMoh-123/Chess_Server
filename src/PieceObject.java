@@ -21,10 +21,8 @@ public class PieceObject {
         this.EnPassantAble = EnPassantAble;
     }
 
-
     public void tick() {
     }
-
 
 
     public ArrayList<String> validMoves(String startingPos, String type) {
@@ -70,7 +68,7 @@ public class PieceObject {
 
                 if (ChessBoard.chessBoard[7 - y - i][x + i].getPiece() == null) {
                     ChessBoard.chessBoard[7 - y - i][x + i].setPiece(this);
-                    if (ChessBoard.blackKing.isKingChecked()) {
+                    if (ChessBoard.whiteKing.isKingChecked()) {
                         validMoves.remove(validMoves.size() - 1);
                     }
                     ChessBoard.chessBoard[7 - y - i][x + i].setPiece(null);
@@ -84,7 +82,7 @@ public class PieceObject {
                         PieceObject piece = ChessBoard.chessBoard[7 - y - i][x + i].getPiece();
                         ChessBoard.chessBoard[7 - y - i][x + i].setPiece(null);
                         ChessBoard.chessBoard[7 - y - i][x + i].setPiece(this);
-                        if (ChessBoard.blackKing.isKingChecked()) {
+                        if (ChessBoard.whiteKing.isKingChecked()) {
                             validMoves.remove(validMoves.size() - 1);
                         }
                         ChessBoard.chessBoard[7 - y - i][x + i].setPiece(piece);
@@ -100,7 +98,7 @@ public class PieceObject {
                 validMoves.add(colNames[x + i] + " " + (y - i + 1));
                 if (ChessBoard.chessBoard[7 - y + i][x + i].getPiece() == null) {
                     ChessBoard.chessBoard[7 - y + i][x + i].setPiece(this);
-                    if (ChessBoard.blackKing.isKingChecked()) {
+                    if (ChessBoard.whiteKing.isKingChecked()) {
                         validMoves.remove(validMoves.size() - 1);
                     }
                     ChessBoard.chessBoard[7 - y + i][x + i].setPiece(null);
@@ -115,7 +113,7 @@ public class PieceObject {
                         PieceObject piece = ChessBoard.chessBoard[7 - y + i][x + i].getPiece();
                         ChessBoard.chessBoard[7 - y + i][x + i].setPiece(null);
                         ChessBoard.chessBoard[7 - y + i][x + i].setPiece(this);
-                        if (ChessBoard.blackKing.isKingChecked()) {
+                        if (ChessBoard.whiteKing.isKingChecked()) {
                             validMoves.remove(validMoves.size() - 1);
                         }
                         ChessBoard.chessBoard[7 - y + i][x + i].setPiece(piece);
@@ -131,7 +129,7 @@ public class PieceObject {
                 validMoves.add(colNames[x - i] + " " + (y + i + 1));
                 if (ChessBoard.chessBoard[7 - y - i][x - i].getPiece() == null) {
                     ChessBoard.chessBoard[7 - y - i][x - i].setPiece(this);
-                    if (ChessBoard.blackKing.isKingChecked()) {
+                    if (ChessBoard.whiteKing.isKingChecked()) {
                         validMoves.remove(validMoves.size() - 1);
                     }
                     ChessBoard.chessBoard[7 - y - i][x - i].setPiece(null);
@@ -145,7 +143,7 @@ public class PieceObject {
                         PieceObject piece = ChessBoard.chessBoard[7 - y - i][x - i].getPiece();
                         ChessBoard.chessBoard[7 - y - i][x - i].setPiece(null);
                         ChessBoard.chessBoard[7 - y - i][x - i].setPiece(this);
-                        if (ChessBoard.blackKing.isKingChecked()) {
+                        if (ChessBoard.whiteKing.isKingChecked()) {
                             validMoves.remove(validMoves.size() - 1);
                         }
                         ChessBoard.chessBoard[7 - y - i][x - i].setPiece(piece);
@@ -161,7 +159,7 @@ public class PieceObject {
                 validMoves.add(colNames[x - i] + " " + (y - i + 1));
                 if (ChessBoard.chessBoard[7 - y + i][x - i].getPiece() == null) {
                     ChessBoard.chessBoard[7 - y + i][x - i].setPiece(this);
-                    if (ChessBoard.blackKing.isKingChecked()) {
+                    if (ChessBoard.whiteKing.isKingChecked()) {
                         validMoves.remove(validMoves.size() - 1);
                     }
                     ChessBoard.chessBoard[7 - y + i][x - i].setPiece(null);
@@ -176,7 +174,7 @@ public class PieceObject {
                         PieceObject piece = ChessBoard.chessBoard[7 - y + i][x - i].getPiece();
                         ChessBoard.chessBoard[7 - y + i][x - i].setPiece(null);
                         ChessBoard.chessBoard[7 - y + i][x - i].setPiece(this);
-                        if (ChessBoard.blackKing.isKingChecked()) {
+                        if (ChessBoard.whiteKing.isKingChecked()) {
                             validMoves.remove(validMoves.size() - 1);
                         }
                         ChessBoard.chessBoard[7 - y + i][x - i].setPiece(piece);
@@ -207,7 +205,7 @@ public class PieceObject {
                 if (ChessBoard.chessBoard[8 - y][x + i].getPiece() == null) {
 
                     ChessBoard.chessBoard[8 - y][x + i].setPiece(this);
-                    if (ChessBoard.blackKing.isKingChecked()) {
+                    if (ChessBoard.whiteKing.isKingChecked()) {
                         validMoves.remove(validMoves.size() - 1);
                     }
                     ChessBoard.chessBoard[8 - y][x + i].setPiece(null);
@@ -224,7 +222,7 @@ public class PieceObject {
                         // move current peice there
                         ChessBoard.chessBoard[8 - y][x + i].setPiece(this);
 // check if the king is checked
-                        if (ChessBoard.blackKing.isKingChecked()) {
+                        if (ChessBoard.whiteKing.isKingChecked()) {
                             validMoves.remove(validMoves.size() - 1);
                         }
                         // set the piece back
@@ -240,10 +238,9 @@ public class PieceObject {
             if (x - i >= 0) {
                 validMoves.add(colNames[x - i] + " " + y);
 
-                System.out.println("HERE " + x + " " + y);
                 if (ChessBoard.chessBoard[8 - y][x - i].getPiece() == null) {
                     ChessBoard.chessBoard[8 - y][x - i].setPiece(this);
-                    if (ChessBoard.blackKing.isKingChecked()) {
+                    if (ChessBoard.whiteKing.isKingChecked()) {
                         validMoves.remove(validMoves.size() - 1);
                     }
                     ChessBoard.chessBoard[8 - y][x - i].setPiece(null);
@@ -260,7 +257,7 @@ public class PieceObject {
                         // move current peice there
                         ChessBoard.chessBoard[8 - y][x - i].setPiece(this);
 // check if the king is checked
-                        if (ChessBoard.blackKing.isKingChecked()) {
+                        if (ChessBoard.whiteKing.isKingChecked()) {
                             validMoves.remove(validMoves.size() - 1);
                         }
                         // set the piece back
@@ -279,7 +276,7 @@ public class PieceObject {
                 validMoves.add(colNames[x] + " " + (y + i));
                 if (ChessBoard.chessBoard[8 - (y + i)][x].getPiece() == null) {
                     ChessBoard.chessBoard[8 - (y + i)][x].setPiece(this);
-                    if (ChessBoard.blackKing.isKingChecked()) {
+                    if (ChessBoard.whiteKing.isKingChecked()) {
                         validMoves.remove(validMoves.size() - 1);
                     }
                     ChessBoard.chessBoard[8 - (y + i)][x].setPiece(null);
@@ -294,7 +291,7 @@ public class PieceObject {
                         PieceObject piece = ChessBoard.chessBoard[8 - (y + i)][x].getPiece();
                         ChessBoard.chessBoard[8 - (y + i)][x].setPiece(null);
                         ChessBoard.chessBoard[8 - (y + i)][x].setPiece(this);
-                        if (ChessBoard.blackKing.isKingChecked()) {
+                        if (ChessBoard.whiteKing.isKingChecked()) {
                             validMoves.remove(validMoves.size() - 1);
                         }
                         ChessBoard.chessBoard[8 - (y + i)][x].setPiece(piece);
@@ -312,7 +309,7 @@ public class PieceObject {
                 validMoves.add(colNames[x] + " " + (y - i));
                 if (ChessBoard.chessBoard[8 - (y - i)][x].getPiece() == null) {
                     ChessBoard.chessBoard[8 - (y - i)][x].setPiece(this);
-                    if (ChessBoard.blackKing.isKingChecked()) {
+                    if (ChessBoard.whiteKing.isKingChecked()) {
                         validMoves.remove(validMoves.size() - 1);
                     }
 
@@ -327,7 +324,7 @@ public class PieceObject {
                         PieceObject piece = ChessBoard.chessBoard[8 - (y - i)][x].getPiece();
                         ChessBoard.chessBoard[8 - (y - i)][x].setPiece(null);
                         ChessBoard.chessBoard[8 - (y - i)][x].setPiece(this);
-                        if (ChessBoard.blackKing.isKingChecked()) {
+                        if (ChessBoard.whiteKing.isKingChecked()) {
                             validMoves.remove(validMoves.size() - 1);
                         }
                         ChessBoard.chessBoard[8 - (y - i)][x].setPiece(piece);
@@ -354,9 +351,7 @@ public class PieceObject {
         ArrayList<String> validMoves = new ArrayList<String>();
         int x = startingPos.charAt(0) - 97;
         int y = startingPos.charAt(2) - 49;
-        ChessBoard.chessBoard[6-y][x].setBackground(Color.YELLOW);
         if(ChessBoard.chessBoard[6-y][x].getPiece() == null){
-            System.out.println(colNames[x] + " " + (y+2));
             validMoves.add(colNames[x] + " " + (y+2));
             if(ChessBoard.chessBoard[4][x].getPiece() == null && y == 1){
                 validMoves.add(colNames[x] + " 4");
@@ -381,7 +376,6 @@ public class PieceObject {
         if(y == 4){
             if(x + 1 < 8){
                 if(ChessBoard.chessBoard[7-y][x+1].getPiece() != null) {
-                    System.out.println("En Passant Right");
                     if (ChessBoard.chessBoard[7 - y][x + 1].getPiece().EnPassantAble) {
                         validMoves.add(colNames[x + 1] + " " + (y + 2) + " wr");
                     }
@@ -389,7 +383,6 @@ public class PieceObject {
             }
             if(x - 1 > 0){
                 if(ChessBoard.chessBoard[7-y][x-1].getPiece() != null){
-                    System.out.println("En Passant LEFT");
                     if(ChessBoard.chessBoard[7-y][x-1].getPiece().EnPassantAble){
                         validMoves.add(colNames[x-1] + " " + (y + 2) + " wl");
                     }
@@ -415,13 +408,12 @@ public class PieceObject {
         for (int i = 0; i < 8; i++) {
             if (xMoves[i] >= 0 && xMoves[i] < 8 && yMoves[i] >= 0 && yMoves[i] < 8) {
                 char charValX = (char) (xMoves[i] + 97);
-                int inValX = letterToNumber(charValX);
                 if (ChessBoard.chessBoard[7 - yMoves[i]][charValX - 97].getPiece() == null || isOpponentPiece(charValX - 97, 7 - yMoves[i])) {
                     validMoves.add(charValX + " " + (yMoves[i] + 1));
 
                     if (ChessBoard.chessBoard[7 - yMoves[i]][charValX - 97].getPiece() == null) {
                         ChessBoard.chessBoard[7 - yMoves[i]][charValX - 97].setPiece(this);
-                        if (ChessBoard.blackKing.isKingChecked()) {
+                        if (ChessBoard.whiteKing.isKingChecked()) {
                             validMoves.remove(validMoves.size() - 1);
                         }
                         ChessBoard.chessBoard[7 - yMoves[i]][charValX - 97].setPiece(null);
@@ -430,19 +422,12 @@ public class PieceObject {
                         PieceObject piece = ChessBoard.chessBoard[7 - yMoves[i]][charValX - 97].getPiece();
                         ChessBoard.chessBoard[7 - yMoves[i]][charValX - 97].setPiece(null);
                         ChessBoard.chessBoard[7 - yMoves[i]][charValX - 97].setPiece(this);
-                        if (ChessBoard.blackKing.isKingChecked()) {
+                        if (ChessBoard.whiteKing.isKingChecked()) {
                             validMoves.remove(validMoves.size() - 1);
                         }
                         ChessBoard.chessBoard[7 - yMoves[i]][charValX - 97].setPiece(piece);
                     }
-
-
                 }
-
-
-
-
-
             }
         }
         ChessBoard.previousClickedTile.setPiece(temp);
