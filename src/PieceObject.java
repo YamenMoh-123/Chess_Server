@@ -259,6 +259,13 @@ public class PieceObject {
         return validMoves;
     }
 
+    public int[] getPos(){
+        return new int[]{};
+    }
+
+    public boolean isKingChecked() {
+        return false;
+    }
     public static int letterToNumber(char letter) {
         return Character.toLowerCase(letter) - 'a';
     }
@@ -307,6 +314,16 @@ public class PieceObject {
                 case "Pawn":
                     g2d.drawImage(PieceSpriteBlack[5], this.x, this.y, 100, 100, null);
                     break;
+            }
+        }
+        if (ChessBoard.movesShown) {
+            for (String move : ChessBoard.previousMoves) {
+                if (ChessBoard.chessBoard[7 - (move.charAt(2) - 49)][(move.charAt(0) - 97)].getPiece() == null) {
+                    int centerX = ChessBoard.chessBoard[7 - (move.charAt(2) - 49)][(move.charAt(0) - 97)].getX();
+                    int centerY = ChessBoard.chessBoard[7 - (move.charAt(2) - 49)][(move.charAt(0) - 97)].getY();
+                    g2d.setColor(new Color(129,150,105));
+                    g2d.fillOval(centerX + 43, centerY + 35, 30, 30);
+                }
             }
         }
 
