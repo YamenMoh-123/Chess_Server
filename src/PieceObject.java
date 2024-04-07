@@ -222,8 +222,7 @@ public class PieceObject {
                 if(ChessBoard.chessBoard[7-y][x+1].getPiece() != null) {
                     System.out.println("En Passant Right");
                     if (ChessBoard.chessBoard[7 - y][x + 1].getPiece().EnPassantAble) {
-                        System.out.println("En Passant");
-                        validMoves.add(colNames[x + 1] + " " + (y + 2));
+                        validMoves.add(colNames[x + 1] + " " + (y + 2) + " wr");
                     }
                 }
             }
@@ -231,8 +230,7 @@ public class PieceObject {
                 if(ChessBoard.chessBoard[7-y][x-1].getPiece() != null){
                     System.out.println("En Passant LEFT");
                     if(ChessBoard.chessBoard[7-y][x-1].getPiece().EnPassantAble){
-                        System.out.println("En Passant");
-                        validMoves.add(colNames[x-1] + " " + (y+2));
+                        validMoves.add(colNames[x-1] + " " + (y + 2) + " wl");
                     }
                 }
             }
