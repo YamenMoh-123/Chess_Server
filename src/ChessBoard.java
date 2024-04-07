@@ -22,7 +22,7 @@ public class ChessBoard extends JPanel {
     public static boolean isCurrentChecked = false;
 
     public static String turn = "WHITE";
-    private String[][] boardInit = {
+     private String[][] boardInit = {
             {"Rook", "Knight", "Bishop", "Queen", "Empty", "Bishop", "Knight", "Rook"},
             {"Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn"},
             {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
@@ -35,9 +35,11 @@ public class ChessBoard extends JPanel {
 
 
 
+
+
     public static ChessSquare[][] chessBoard = new ChessSquare[ROWS][COLS];
 
-    private ChessSquare previousClickedTile = null;
+    public static ChessSquare previousClickedTile = null;
     public static ArrayList<String> previousMoves = null;
     public static PieceObject whiteKing;
     public static PieceObject blackKing;
@@ -71,16 +73,18 @@ public class ChessBoard extends JPanel {
                         resetTileColors();
                         previousClickedTile.setBackground(new Color(205,209,106));
                         displayPossibleMoves(previousClickedTile.getPiece().validMoves(previousClickedTile.getName(), previousClickedTile.getPiece().name));
-                        movePiece(((ChessSquare) e.getSource()).getName());
-                        try {
-                            ChessGame.toClient = new PrintWriter(ChessGame.clientSocket.getOutputStream(), true);
-                            ChessGame.toClient.flush();
-                            if (previousMoves.contains(((ChessSquare) e.getSource()).getName())) {
-                                ChessGame.toClient.println(previousClickedTile.getName() + " " + ((ChessSquare) e.getSource()).getName() + " " + ((ChessSquare) e.getSource()).getPiece().name);
-                                moved = true;
+
+                        if(movePiece(((ChessSquare) e.getSource()).getName())) {
+                            try {
+                                ChessGame.toClient = new PrintWriter(ChessGame.clientSocket.getOutputStream(), true);
+                                ChessGame.toClient.flush();
+                                if (previousMoves.contains(((ChessSquare) e.getSource()).getName())) {
+                                    ChessGame.toClient.println(previousClickedTile.getName() + " " + ((ChessSquare) e.getSource()).getName() + " " + ((ChessSquare) e.getSource()).getPiece().name + " " + ((ChessSquare) e.getSource()).getPiece().EnPassantAble);
+                                    moved = true;
+                                }
+                            } catch (IOException ioException) {
+                                ioException.printStackTrace();
                             }
-                        } catch (IOException ioException) {
-                            ioException.printStackTrace();
                         }
                         turn = "BLACK";
                     }
@@ -96,7 +100,7 @@ public class ChessBoard extends JPanel {
 
     public void displayPossibleMoves(ArrayList<String> moves) {
         for (String move : moves) {
-            if (chessBoard[7 - (move.charAt(2) - 49)][(move.charAt(0) - 97)].getPiece() != null) {
+            if (chessBoard[7 - (move.charAt(2) - 49)][(move.charAt(0) - 97)].getPiece() != null && chessBoard[7 - (move.charAt(2) - 49)][(move.charAt(0) - 97)].getPiece().color != Color.WHITE) {
                 chessBoard[7 - (move.charAt(2) - 49)][(move.charAt(0) - 97)].setBackground(new Color(129,150,105));
             }
         }
@@ -116,7 +120,7 @@ public class ChessBoard extends JPanel {
         }
 
         previousClickedTile.setPiece(temp);
-        isCurrentChecked = blackKing.isKingChecked();
+        isCurrentChecked = whiteKing.isKingChecked();
         // might be behind by 1 tick
 
         if (previousClickedTile.getPiece().validMoves(previousClickedTile.getName(), previousClickedTile.getPiece().name).contains(name)) {
