@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ChessBoard extends JPanel {
 
@@ -48,6 +49,7 @@ public class ChessBoard extends JPanel {
     public static int whiteSec = 0; // Initial seconds
     public static int blackMin = Integer.parseInt(LaunchScreen.gameTime); // Initial minutes
     public static int blackSec = 0; // Initial seconds
+    static boolean promoted =  false;
 
     private JLabel whiteTimerLabel;
     private JLabel blackTimerLabel;
@@ -80,12 +82,21 @@ public class ChessBoard extends JPanel {
                                 ChessGame.toClient = new PrintWriter(ChessGame.clientSocket.getOutputStream(), true);
                                 ChessGame.toClient.flush();
                                 if (previousMoves.contains(((ChessSquare) e.getSource()).getName())) {
-                                    ChessGame.toClient.println(previousClickedTile.getName() + " " + ((ChessSquare) e.getSource()).getName() + " " + ((ChessSquare) e.getSource()).getPiece().name + " " + ((ChessSquare) e.getSource()).getPiece().EnPassantAble);
-                                    moved = true;
+                                  
+                            if (((ChessSquare) e.getSource()).getPiece() != null) {
+                                       String name;
+                                      if(promoted){
+                                          name = "Queen";
+                                          promoted = false;
+                                      }
+                                      else {
+                                          name = ((ChessSquare) e.getSource()).getPiece().name;
+                                      }
+                                      ChessGame.toClient.println(previousClickedTile.getName() + " " + ((ChessSquare) e.getSource()).getName() + " " + name + " " + ((ChessSquare) e.getSource()).getPiece().EnPassantAble + " " + enPassantHappenedCheck);
+                                      moved = true;
                                 }
                             } catch (IOException ioException) {
                                 ioException.printStackTrace();
-
                             }
                         }
                         turn = "BLACK";
@@ -157,6 +168,7 @@ public class ChessBoard extends JPanel {
     return true;
   }
 
+
        public static void moveResponse(int oldx, int oldy, int x, int y, String name, boolean enPassant, boolean enPassantHappened){
         if (chessBoard[y][x].getPiece() != null) {
             GameCanvas.gameManager.removeGameObject(chessBoard[y][x].getPiece());
@@ -177,6 +189,7 @@ public class ChessBoard extends JPanel {
         System.out.println(isCurrentChecked + " Checked on server move");
         switchTurn();
     }
+
 
     private void unEnpassant(int y, int x){
         for (int row = 0; row < ROWS; row++) {
