@@ -56,7 +56,7 @@ public class ChessBoard extends JPanel {
 
     private ActionListener pieceListener = new ActionListener() {
 
-        @Override
+         @Override
         public void actionPerformed(ActionEvent e) {
             if (!moved) {
                 if (((ChessSquare) e.getSource()).getPiece() != null && ((ChessSquare) e.getSource()).getPiece().color == Color.WHITE) {
