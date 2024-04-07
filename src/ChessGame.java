@@ -33,6 +33,8 @@ public class ChessGame extends JPanel {
                             int y = 7 - (parts[3].charAt(0) - 49);
                             boolean enPassant = Boolean.parseBoolean(parts[5]);
                             ChessBoard.moveResponse(oldX, oldY, x, y, enPassant);
+                            Resources.playSound("Resources/Sounds/move-self.wav");
+
                         }
                     }
                 }
