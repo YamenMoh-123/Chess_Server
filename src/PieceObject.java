@@ -189,20 +189,16 @@ public class PieceObject {
         ArrayList<String> validMoves = new ArrayList<String>();
         int x = startingPos.charAt(0) - 97;
         int y = startingPos.charAt(2) - 49;
-        if(y == 1){
-            if(ChessBoard.chessBoard[5][x].getPiece() == null){
-                validMoves.add(colNames[x] + " 3");
-                if(ChessBoard.chessBoard[4][x].getPiece() == null){
-                    validMoves.add(colNames[x] + " 4");
-                    EnPassantAble = true;
-                }
+        ChessBoard.chessBoard[6-y][x].setBackground(Color.YELLOW);
+        if(ChessBoard.chessBoard[6-y][x].getPiece() == null){
+            System.out.println(colNames[x] + " " + (y+2));
+            validMoves.add(colNames[x] + " " + (y+2));
+            if(ChessBoard.chessBoard[4][x].getPiece() == null && y == 1){
+                validMoves.add(colNames[x] + " 4");
+                EnPassantAble = true;
             }
         }
-        else if(y > 1 && y < 7){
-            if(ChessBoard.chessBoard[6-y][x].getPiece() == null){
-                validMoves.add(colNames[x] + " " + (y+2));
-            }
-        }
+
         if(x+1 < 8 && y+1 < 8){
             if(ChessBoard.chessBoard[7-y-1][x+1].getPiece() != null){
                 if(isOpponentPiece(x+1, 7-y-1)){
