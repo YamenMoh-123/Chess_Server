@@ -22,8 +22,6 @@ public class ChessGame extends JPanel {
                     // Listen for notifications from the server
                     notification = ChessGame.fromClient.readLine();
                     if (notification != null) {
-                        // Logic to handle the notification
-
                         // check if the notifcation is a mate or draw, if so end the game
                         if(notification.equals("Mate")) {
                             JOptionPane.showMessageDialog(null, "Checkmate! You win!", "Notice", JOptionPane.INFORMATION_MESSAGE);
