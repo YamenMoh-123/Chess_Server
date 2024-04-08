@@ -24,6 +24,9 @@ public class PieceObject {
     public void tick() {
     }
 
+    public boolean hasAvailableMoves(){
+        return true;
+    }
 
     public ArrayList<String> validMoves(String startingPos, String type) {
         switch (type) {
