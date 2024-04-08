@@ -16,8 +16,8 @@ public class PieceObject {
     public PieceObject(String name, Color color, int x, int y, boolean EnPassantAble) {
         this.name = name;
         this.color = color;
-        this.x = x+5;
-        this.y = y-10;
+        this.x = x + 30;
+        this.y = y;
         this.EnPassantAble = EnPassantAble;
     }
 
@@ -522,7 +522,7 @@ public class PieceObject {
                     int centerX = ChessBoard.chessBoard[7 - (move.charAt(2) - 49)][(move.charAt(0) - 97)].getX();
                     int centerY = ChessBoard.chessBoard[7 - (move.charAt(2) - 49)][(move.charAt(0) - 97)].getY();
                     g2d.setColor(new Color(129,150,105));
-                    g2d.fillOval(centerX + 35, centerY + 35, 30, 30);
+                    g2d.fillOval(centerX +63, centerY + 35, 30, 30);
                 }
             }
         }

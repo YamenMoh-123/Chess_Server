@@ -20,7 +20,7 @@ public class ChessSquare extends JButton {
     }
 
     public void setPos(int x, int y) {
-        this.x = x;
+        this.x = x ;
         this.y = y;
     }
 
