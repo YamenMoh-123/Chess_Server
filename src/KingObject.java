@@ -68,7 +68,7 @@ public class KingObject extends PieceObject {
         ChessBoard.chessBoard[boardX][boardY].setPiece(null);
         ArrayList<String> validMoves = new ArrayList<String>();
 
-        if(!hasMoved && ChessBoard.chessBoard[7][0].getPiece().name.equals("Rook") && !ChessBoard.chessBoard[7][0].getPiece().hasMoved){
+        if(!hasMoved && ChessBoard.chessBoard[7][0].getPiece() != null && ChessBoard.chessBoard[7][0].getPiece().name.equals("Rook") && !ChessBoard.chessBoard[7][0].getPiece().hasMoved){
             if(ChessBoard.chessBoard[7][1].getPiece() == null && ChessBoard.chessBoard[7][2].getPiece() == null && ChessBoard.chessBoard[7][3].getPiece() == null){
                 if (!isKingChecked()) {
                     boardX = 7;
@@ -89,7 +89,7 @@ public class KingObject extends PieceObject {
         }
         boardX = tempX;
         boardY = tempY;
-        if(!hasMoved && ChessBoard.chessBoard[7][7].getPiece().name.equals("Rook") && !ChessBoard.chessBoard[7][7].getPiece().hasMoved){
+        if(!hasMoved && ChessBoard.chessBoard[7][7].getPiece() != null && ChessBoard.chessBoard[7][7].getPiece().name.equals("Rook") && !ChessBoard.chessBoard[7][7].getPiece().hasMoved){
             if(ChessBoard.chessBoard[7][5].getPiece() == null && ChessBoard.chessBoard[7][6].getPiece() == null) {
                 if (!isKingChecked()) {
                     boardX = 7;

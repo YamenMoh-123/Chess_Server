@@ -16,7 +16,7 @@ public class ChessBoard extends JPanel {
     private static final int COLS = 8;
     private static final int BOARD_SIZE = 800;
     private static final int FONT_SIZE = 16;
-    private static final int PADDING_RIGHT = 10;
+    private static final int PADDING_RIGHT = 0;
     private static String[] colNames = {"a", "b", "c", "d", "e", "f", "g", "h"};
     public static boolean moved = false;
 
@@ -60,6 +60,7 @@ public class ChessBoard extends JPanel {
 
          @Override
         public void actionPerformed(ActionEvent e) {
+
             if (!moved) {
                 if (((ChessSquare) e.getSource()).getPiece() != null && ((ChessSquare) e.getSource()).getPiece().color == Color.WHITE) {
                     movesShown = false;
@@ -350,8 +351,8 @@ public class ChessBoard extends JPanel {
         JPanel mainPanel = new JPanel(new BorderLayout());
         //mainPanel.add(timerPanel, BorderLayout.EAST);
         mainPanel.add(boardPanel, BorderLayout.CENTER);
-        mainPanel.add(bottomLabels, BorderLayout.SOUTH);
-        mainPanel.add(sideLabels, BorderLayout.WEST);
+        //mainPanel.add(bottomLabels, BorderLayout.SOUTH);
+        //mainPanel.add(sideLabels, BorderLayout.WEST);
 
         add(mainPanel);
         initBoard();
