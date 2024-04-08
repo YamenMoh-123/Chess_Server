@@ -23,6 +23,7 @@ public class ChessBoard extends JPanel {
     public static boolean isCurrentChecked = false;
 
     public static String turn = "WHITE";
+
     private String[][] boardInit = {
             {"Rook", "Knight", "Bishop", "Queen", "Empty", "Bishop", "Knight", "Rook"},
             {"Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn"},
@@ -30,11 +31,10 @@ public class ChessBoard extends JPanel {
             {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
             {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
             {"Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty", "Empty"},
-            {"Pawn", "Empty", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn"},
+            {"Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn", "Pawn"},
             {"Rook", "Knight", "Bishop", "Queen", "Empty", "Bishop", "Knight", "Rook"}
     };
 
-  
 
 
     public static ChessSquare[][] chessBoard = new ChessSquare[ROWS][COLS];
@@ -206,9 +206,16 @@ public class ChessBoard extends JPanel {
         GameCanvas.gameManager.addGameObject(piece);
 
         moved = false;
-
-        isCurrentChecked = blackKing.isKingChecked();
         switchTurn();
+
+        if (!whiteKing.hasAvailableMoves()) {
+            if(whiteKing.isKingChecked()){
+                System.out.println("CheckMate");
+            }
+            else{
+                System.out.println("StaleMate");
+            }
+        }
     }
 
 
