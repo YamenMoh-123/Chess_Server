@@ -16,7 +16,7 @@ public class ChessBoard extends JPanel {
     private static final int COLS = 8;
     private static final int BOARD_SIZE = 800;
     private static final int FONT_SIZE = 16;
-    private static final int PADDING_RIGHT = 10;
+    private static final int PADDING_RIGHT = 0;
     private static String[] colNames = {"a", "b", "c", "d", "e", "f", "g", "h"};
     public static boolean moved = false;
 
@@ -60,6 +60,7 @@ public class ChessBoard extends JPanel {
 
          @Override
         public void actionPerformed(ActionEvent e) {
+
             if (!moved) {
                 if (((ChessSquare) e.getSource()).getPiece() != null && ((ChessSquare) e.getSource()).getPiece().color == Color.WHITE) {
                     movesShown = false;
@@ -262,7 +263,7 @@ public class ChessBoard extends JPanel {
 
         whiteTimerLabel = new JLabel("White: " + whiteMin + ":" + String.format("%02d", whiteSec));
         blackTimerLabel = new JLabel("Black: " + blackMin + ":" + String.format("%02d", blackSec));
-        turnLabel = new JLabel("Turn: " + turn);
+        turnLabel = new JLabel("Turn: W");
 
         timer = new Timer(1000, new ActionListener() {
             @Override
@@ -296,7 +297,11 @@ public class ChessBoard extends JPanel {
                 }
                 whiteTimerLabel.setText("White: " + whiteMin + ":" + String.format("%02d", whiteSec));
                 blackTimerLabel.setText("Black: " + blackMin + ":" + String.format("%02d", blackSec));
-                turnLabel.setText("Turn: " + turn);
+                if(turn.equals("WHITE")){
+                turnLabel.setText("Turn: W");}
+                else{
+                    turnLabel.setText("Turn: B");
+                }
             }
         });
         timer.start();
@@ -350,12 +355,19 @@ public class ChessBoard extends JPanel {
         turnLabel.setBackground(Color.LIGHT_GRAY); // Background color
         turnLabel.setOpaque(true); // Make background color visible
 
+        whiteTimerLabel.setPreferredSize(new Dimension(100, 30));
+        turnLabel.setPreferredSize(new Dimension(100, 30));
+        blackTimerLabel.setPreferredSize(new Dimension(100, 30));
+        bottomLabels.setPreferredSize(new Dimension(BOARD_SIZE, 30));
+        sideLabels.setPreferredSize(new Dimension(30, BOARD_SIZE));
+        boardPanel.setPreferredSize(new Dimension(BOARD_SIZE, BOARD_SIZE));
+
         timerPanel.add(whiteTimerLabel);
         timerPanel.add(turnLabel);
         timerPanel.add(blackTimerLabel);
 
         JPanel mainPanel = new JPanel(new BorderLayout());
-        //mainPanel.add(timerPanel, BorderLayout.EAST);
+        mainPanel.add(timerPanel, BorderLayout.EAST);
         mainPanel.add(boardPanel, BorderLayout.CENTER);
         mainPanel.add(bottomLabels, BorderLayout.SOUTH);
         mainPanel.add(sideLabels, BorderLayout.WEST);

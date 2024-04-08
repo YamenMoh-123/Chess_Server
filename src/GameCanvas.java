@@ -8,7 +8,7 @@ public class GameCanvas extends JPanel implements Runnable {
     public static GameManager gameManager = new GameManager();
 
     public GameCanvas() {
-        this.setPreferredSize(new Dimension(800, 800));
+        this.setPreferredSize(new Dimension(930, 830));
         setDoubleBuffered(true);
     }
 

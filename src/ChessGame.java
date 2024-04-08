@@ -8,8 +8,8 @@ import java.net.Socket;
 import java.io.PrintWriter;
 
 public class ChessGame extends JPanel {
-    static int Game_Width = 800;
-    static int Game_Height = 800;
+    static int Game_Width = 930;
+    static int Game_Height = 830;
     public static ServerSocket socket;
     public static Socket clientSocket;
     public static BufferedReader fromClient;
@@ -55,7 +55,7 @@ public class ChessGame extends JPanel {
             fromClient = new BufferedReader(new InputStreamReader(ChessGame.clientSocket.getInputStream()));
         } catch (
                 IOException ioException) {
-            ioException.printStackTrace();
+                ioException.printStackTrace();
         }
         System.out.println("Client connected!");
         SwingUtilities.invokeLater(() -> {
