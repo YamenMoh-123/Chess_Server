@@ -351,25 +351,50 @@ public class PieceObject {
         ArrayList<String> validMoves = new ArrayList<String>();
         int x = startingPos.charAt(0) - 97;
         int y = startingPos.charAt(2) - 49;
+
+        PieceObject temp = ChessBoard.previousClickedTile.getPiece();
+        ChessBoard.previousClickedTile.setPiece(null);
+
+
         if(ChessBoard.chessBoard[6-y][x].getPiece() == null){
-            validMoves.add(colNames[x] + " " + (y+2));
+            ChessBoard.chessBoard[6-y][x].setPiece(this);
+            if(!ChessBoard.whiteKing.isKingChecked()){
+                validMoves.add(colNames[x] + " " + (y + 2));
+            }
+            ChessBoard.chessBoard[6-y][x].setPiece(null);
+
             if(ChessBoard.chessBoard[4][x].getPiece() == null && y == 1){
-                validMoves.add(colNames[x] + " 4");
+                ChessBoard.chessBoard[4][x].setPiece(this);
+                if(!ChessBoard.whiteKing.isKingChecked()){
+                    validMoves.add(colNames[x] + " 4");
+                }
+                ChessBoard.chessBoard[4][x].setPiece(null);
                 EnPassantAble = true;
             }
         }
 
         if(x+1 < 8 && y+1 < 8){
             if(ChessBoard.chessBoard[7-y-1][x+1].getPiece() != null){
-                if(isOpponentPiece(x+1, 7-y-1)){
-                    validMoves.add(colNames[x+1] + " " + (y+2));
+
+                PieceObject piece = ChessBoard.chessBoard[7-y-1][x+1].getPiece();
+
+                if(isOpponentPiece(x+1, 7-y-1)) {
+                    ChessBoard.chessBoard[7 - y - 1][x + 1].setPiece(this);
+                    if (!ChessBoard.whiteKing.isKingChecked())
+                        validMoves.add(colNames[x + 1] + " " + (y + 2));
                 }
+                ChessBoard.chessBoard[7-y-1][x+1].setPiece(piece);
             }
         }
         if(x-1 >= 0 && y+1 < 8){
             if(ChessBoard.chessBoard[7-y-1][x-1].getPiece() != null){
+                PieceObject piece = ChessBoard.chessBoard[7-y-1][x-1].getPiece();
                 if(isOpponentPiece(x-1, 7-y-1)){
-                    validMoves.add(colNames[x-1] + " " + (y+2));
+                    ChessBoard.chessBoard[7-y-1][x-1].setPiece(this);
+                    if(!ChessBoard.whiteKing.isKingChecked()){
+                        validMoves.add(colNames[x-1] + " " + (y+2));
+                    }
+                    ChessBoard.chessBoard[7-y-1][x-1].setPiece(piece);
                 }
             }
         }
@@ -389,7 +414,7 @@ public class PieceObject {
                 }
             }
         }
-
+        ChessBoard.previousClickedTile.setPiece(temp);
         return validMoves;
     }
 

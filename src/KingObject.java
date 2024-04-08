@@ -47,10 +47,10 @@ public class KingObject extends PieceObject {
                 boardX = 7-yMoves[i];
                 boardY = xMoves[i];
 
-                // System.out.println("TEMP: " + boardX + " " + boardY);
-                // ChessBoard.chessBoard[boardX][boardY].setBackground(Color.YELLOW);
-                if(!isKingChecked() && ChessBoard.chessBoard[boardX][boardY].getPiece() == null){
-                    validMoves.add((char) (xMoves[i] + 97) + " " + (yMoves[i] + 1));
+                if(!isKingChecked()) {
+                    if (ChessBoard.chessBoard[boardX][boardY].getPiece() == null || ChessBoard.chessBoard[boardX][boardY].getPiece().color != this.color) {
+                        validMoves.add((char) (xMoves[i] + 97) + " " + (yMoves[i] + 1));
+                    }
                 }
             }
         }
@@ -260,20 +260,21 @@ public class KingObject extends PieceObject {
         }
 
 
-        if (boardX + 1 < 8 && boardY - 1 >= 0) { // Southwest
-            if (ChessBoard.chessBoard[boardX + 1][boardY - 1].getPiece() != null &&
-                    ChessBoard.chessBoard[boardX + 1][boardY - 1].getPiece().name.equals("Pawn") &&
-                    ChessBoard.chessBoard[boardX + 1][boardY - 1].getPiece().color == Color.WHITE) {
+        if (boardX - 1 >= 0 && boardY - 1 >= 0) { // Northwest
+            if (ChessBoard.chessBoard[boardX - 1][boardY - 1].getPiece() != null &&
+                    ChessBoard.chessBoard[boardX - 1][boardY - 1].getPiece().name.equals("Pawn") &&
+                    ChessBoard.chessBoard[boardX - 1][boardY - 1].getPiece().color == Color.BLACK) {
                 return true;
             }
         }
-        if (boardX + 1 < 8 && boardY + 1 < 8) { // Southeast
-            if (ChessBoard.chessBoard[boardX + 1][boardY + 1].getPiece() != null &&
-                    ChessBoard.chessBoard[boardX + 1][boardY + 1].getPiece().name.equals("Pawn") &&
-                    ChessBoard.chessBoard[boardX + 1][boardY + 1].getPiece().color == Color.WHITE) {
+        if (boardX - 1 >= 0 && boardY + 1 < 8) { // Northeast
+            if (ChessBoard.chessBoard[boardX - 1][boardY + 1].getPiece() != null &&
+                    ChessBoard.chessBoard[boardX - 1][boardY + 1].getPiece().name.equals("Pawn") &&
+                    ChessBoard.chessBoard[boardX - 1][boardY + 1].getPiece().color == Color.BLACK) {
                 return true;
             }
         }
+
 
 
         return false;
