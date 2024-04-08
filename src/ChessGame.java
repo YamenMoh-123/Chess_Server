@@ -27,6 +27,7 @@ public class ChessGame extends JPanel {
 
                         String[] parts = notification.split(" ");
                         if (notification.length() > 10) {
+                            System.out.println("Received notification from client: " + notification);
                             int oldX = parts[0].charAt(0) - 97;
                             int oldY = 7 - (parts[1].charAt(0) - 49);
                             int x = parts[2].charAt(0) - 97;
