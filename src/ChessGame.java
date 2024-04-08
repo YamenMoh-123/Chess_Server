@@ -23,21 +23,32 @@ public class ChessGame extends JPanel {
                     notification = ChessGame.fromClient.readLine();
                     if (notification != null) {
                         // Logic to handle the notification
-                        // For example, you can update the game state, display messages to the user, etc.
 
-                        String[] parts = notification.split(" ");
-                        if (notification.length() > 10) {
-                            System.out.println("Received notification from client: " + notification);
-                            int oldX = parts[0].charAt(0) - 97;
-                            int oldY = 7 - (parts[1].charAt(0) - 49);
-                            int x = parts[2].charAt(0) - 97;
-                            int y = 7 - (parts[3].charAt(0) - 49);
-                            boolean enPassant = Boolean.parseBoolean(parts[5]);
-                            String piece = parts[4];
-                            boolean enPassantHappened = Boolean.parseBoolean(parts[6]);
-                            ChessBoard.moveResponse(oldX, oldY, x, y, piece, enPassant, enPassantHappened);
-                            Resources.playSound("Resources/Sounds/move-self.wav");
+                        // check if the notifcation is a mate or draw, if so end the game
+                        if(notification.equals("Mate")) {
+                            JOptionPane.showMessageDialog(null, "Checkmate! You win!", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                            System.exit(0);
+                        }
+                        else if(notification.equals("Draw")) {
+                            JOptionPane.showMessageDialog(null, "Draw! No winner.", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                            System.exit(0);
+                        }
+                        else {
+                            // Parse the notification and update the game state
+                            String[] parts = notification.split(" ");
+                            if (notification.length() > 10) {
+                                System.out.println("Received notification from client: " + notification);
+                                int oldX = parts[0].charAt(0) - 97;
+                                int oldY = 7 - (parts[1].charAt(0) - 49);
+                                int x = parts[2].charAt(0) - 97;
+                                int y = 7 - (parts[3].charAt(0) - 49);
+                                boolean enPassant = Boolean.parseBoolean(parts[5]);
+                                String piece = parts[4];
+                                boolean enPassantHappened = Boolean.parseBoolean(parts[6]);
+                                ChessBoard.moveResponse(oldX, oldY, x, y, piece, enPassant, enPassantHappened);
+                                Resources.playSound("Resources/Sounds/move-self.wav");
 
+                            }
                         }
                     }
                 }
@@ -63,6 +74,7 @@ public class ChessGame extends JPanel {
             JFrame frame = new JFrame("SERVER");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+            // Create the launch screen
             LaunchScreen homeScreen = new LaunchScreen(frame);
             frame.setContentPane(homeScreen);
             handleServerNotifications();
